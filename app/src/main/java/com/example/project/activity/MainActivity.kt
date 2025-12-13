@@ -1,6 +1,7 @@
 package com.example.project.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -24,6 +25,19 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // --- ADD THIS BLOCK TO HANDLE LOGIN RETURN ---
+        val action: String? = intent?.action
+        val data: Uri? = intent?.data
+
+        if (Intent.ACTION_VIEW == action && data != null) {
+            val userId = data.getQueryParameter("uid")
+            if (userId != null) {
+                // Login Successful! You have the UID.
+                // You can save it to SharedPreferences here if you want to keep them logged in.
+            }
+        }
+        // ---------------------------------------------
 
         binding.addCategory.setOnClickListener {
             startActivity(Intent(this, AddCategoryActivity::class.java))
