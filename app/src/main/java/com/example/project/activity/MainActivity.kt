@@ -1,11 +1,14 @@
 package com.example.project.activity
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+//import androidx.compose.ui.semantics.text
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -13,6 +16,7 @@ import com.example.project.Adapter.CategoryAdapter
 import com.example.project.Adapter.PopularAdapter
 import com.example.project.Repos.MainRepo
 import com.example.project.databinding.ActivityMainBinding
+import androidx.core.content.edit
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,18 +30,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // --- ADD THIS BLOCK TO HANDLE LOGIN RETURN ---
-        val action: String? = intent?.action
-        val data: Uri? = intent?.data
+        binding.textView.text = "Guest"
 
-        if (Intent.ACTION_VIEW == action && data != null) {
-            val userId = data.getQueryParameter("uid")
-            if (userId != null) {
-                // Login Successful! You have the UID.
-                // You can save it to SharedPreferences here if you want to keep them logged in.
-            }
-        }
-        // ---------------------------------------------
+        handleIntent(intent)
+
 
         binding.addCategory.setOnClickListener {
             startActivity(Intent(this, AddCategoryActivity::class.java))
@@ -49,6 +45,29 @@ class MainActivity : AppCompatActivity() {
         initBanner()
         initCategory()
         initPopular()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
+
+//            val fullUrl = intent.data.toString()
+//            Toast.makeText(this, "URL: $fullUrl", Toast.LENGTH_LONG).show()
+
+            val uid = intent.data?.getQueryParameter("uid")
+
+            if (!uid.isNullOrEmpty()) {
+                binding.textView.text = "UID: $uid"
+                Toast.makeText(this, "Success! UID: $uid", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "URL received, but uid was empty", Toast.LENGTH_LONG).show()
+            }
+        } else {}
     }
 
     private fun initPopular() {
