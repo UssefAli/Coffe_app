@@ -25,8 +25,8 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(flutterIntent)
                 // Optional: finish() // Uncomment if you want to close the Splash screen so the user can't go back to it
             } catch (e: ActivityNotFoundException) {
-                // This runs if the Flutter app is NOT installed on the phone
-                Toast.makeText(this, "Please install the Auth App first!", Toast.LENGTH_LONG).show()
+//                Toast.makeText(this, "Please install the Auth App first!", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, MainActivity::class.java))
             }
         }
 

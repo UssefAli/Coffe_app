@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         handleIntent(intent)
 
-
         binding.addCategory.setOnClickListener {
             startActivity(Intent(this, AddCategoryActivity::class.java))
         }
@@ -50,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        // 3. Handle the new incoming intent (warm launch)
         handleIntent(intent)
     }
 
@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
             val uid = intent.data?.getQueryParameter("uid")
 
             if (!uid.isNullOrEmpty()) {
-                binding.textView.text = "UID: $uid"
-                Toast.makeText(this, "Success! UID: $uid", Toast.LENGTH_LONG).show()
+                binding.textView.text = "UID: ${uid.take(5)}"
+//              Toast.makeText(this, "Success! UID: $uid", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this, "URL received, but uid was empty", Toast.LENGTH_LONG).show()
             }
