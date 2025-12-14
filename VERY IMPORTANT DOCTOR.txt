@@ -1,0 +1,17 @@
+this is an external flutter app that makes Authentication before navigate to MainActivity
+https://github.com/Momen0Waleed/Coffee-Auth-flutter.git
+
+if you need to run both apps correctly, follow these sequence:-
+1-install both Github Repo.s
+2-setting up the emulator
+3-run Android app and quit from the app
+4-run Flutter app and quit from the app
+5-now you can return to Android app without running it
+
+Now you can follow the correct Two-Apps Flow
+
+=============================================================
+
+just for your knowledge you can run the Android app alone without any problems and it will navigate you as a Guest
+
+*** but it is not good to run Flutter app alone as it may crashes ***
